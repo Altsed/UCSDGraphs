@@ -481,6 +481,7 @@ public class MapGraph {
 	
 	public static void main(String[] args)
 	{
+		//workversion 1.0
 	/*	System.out.print("Making a new map...");
 		MapGraph firstMap = new MapGraph();
 		System.out.print("DONE. \nLoading the map...");
