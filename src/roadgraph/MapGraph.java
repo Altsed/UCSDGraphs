@@ -284,18 +284,19 @@ public class MapGraph {
 		HashMap<GeographicPoint, GeographicPoint> parentsMap = new HashMap<>();
 		boolean found = false;
 		double pathDistance = 0;
+		double pathTime = 0;
 			
 		//initialize Vertices variable curr. Find vertices in HashMap nodes with GeographicPoint start and assign it to curr.
 		Vertices curr = nodes.get(start);
 		list.add(curr);
 				
 		while (!list.isEmpty()) {
-			
-			
 			curr = list.remove();
 			count++;
 			pathDistance = curr.getCurrDistance();
+			pathTime = curr.getCurrTime();
 			System.out.println("pathDistance :" + pathDistance);
+			System.out.println("pathTime :" + pathTime);
 			nodeSearched.accept(curr.getGeoPoint());
 			if (!visited.contains(curr)) {
 				visited.add(curr);
@@ -314,6 +315,7 @@ public class MapGraph {
 						}
 						else {
 							next.setCurrDistance(pathDistance + s.getDistance());
+							next.setCurrTime(pathTime + s.getTime());
 							list.add(next);
 							parentsMap.put(next.getGeoPoint(), curr.getGeoPoint());
 						}
@@ -329,7 +331,9 @@ public class MapGraph {
 				Vertices[] arr = new Vertices[list.size()]; 
 		        Vertices[] arr1 = list.toArray(arr); 
 				for (int i = 0; i < arr1.length; i++) {
-			//		System.out.println(arr1[i].getGeoPoint().getX() + "|" + arr1[i].getGeoPoint().getY() + "  distance:  " + arr1[i].getCurrDistance() + "+" + i + " PriorityQueue: " + list.peek().getCurrDistance());
+					System.out.println(arr1[i].getGeoPoint().getX() + "|" + arr1[i].getGeoPoint().getY() + 
+							"  distance:  " + arr1[i].getCurrDistance() + "+" + i + " PriorityQueue: " + list.peek().getCurrDistance()
+							+ "  time:  " + arr1[i].getCurrTime());
 				}
 					
 				
@@ -482,7 +486,7 @@ public class MapGraph {
 	public static void main(String[] args)
 	{
 		//workversion 1.0
-	/*	System.out.print("Making a new map...");
+		System.out.print("Making a new map...");
 		MapGraph firstMap = new MapGraph();
 		System.out.print("DONE. \nLoading the map...");
 		GraphLoader.loadRoadMap("data/testdata/simpletest.map", firstMap);
@@ -497,7 +501,7 @@ public class MapGraph {
 			System.out.println(list.getX() + "|" + list.getY());
 		}
 		
-		
+		/*
 		
 		// test aStarSearch
 		System.out.println (firstMap.aStarSearch(start, goal).size());
@@ -596,7 +600,7 @@ public class MapGraph {
 			System.out.println("Test 3 using utc: Dijkstra should be 37 and AStar should be 10");
 			testroute = testMap.dijkstra(testStart,testEnd);
 			testroute2 = testMap.aStarSearch(testStart,testEnd);
-		*/
+		
 		MapGraph theMap = new MapGraph();
 		System.out.print("DONE. \nLoading the map...");
 		GraphLoader.loadRoadMap("data/maps/utc.map", theMap);
@@ -607,6 +611,7 @@ public class MapGraph {
 
 		List<GeographicPoint> route = theMap.dijkstra(start,end);
 		List<GeographicPoint> route2 = theMap.aStarSearch(start,end);
+		*/
 	}
 	
 }

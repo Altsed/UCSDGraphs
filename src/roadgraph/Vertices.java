@@ -17,6 +17,8 @@ class Vertices implements Comparator<Vertices> {
 	private List <Edges> edges;
 	private double currDistance;
 	private double estDistance;
+	private double currTime;
+	private double estTime;
 	Vertices() {
 		
 	}
@@ -57,9 +59,25 @@ class Vertices implements Comparator<Vertices> {
 	public double getEstDistance() {
 		return this.estDistance;
 	}
+	public void setCurrTime (double currTime) {
+		this.currTime = currTime;
+	}
+	public double getEstTime() {
+		return this.estTime;
+	}
 
+	public double getCurrTime() {
+		return this.currTime;
+	}
+
+	public void setEstTime (double estTime) {
+		this.estTime = estTime;
+	}
+	
+
+	
 	@Override
-	public int compare(Vertices x, Vertices y) {
+	/*public int compare(Vertices x, Vertices y) {
 	        
 		if ((x.getCurrDistance() + x.getEstDistance()) < (y.getCurrDistance() + y.getEstDistance())) {
 	    	//System.out.println(x.getEstDistance() + " less then " + y.getEstDistance());
@@ -71,7 +89,20 @@ class Vertices implements Comparator<Vertices> {
 	    }
 	        return 0;
 	}
-	
+	*/
+	//adding time dependence to compare with distance
+	public int compare(Vertices x, Vertices y) {
+        
+		if (x.getCurrTime() < y.getCurrTime()) {
+	    	//System.out.println(x.getEstDistance() + " less then " + y.getEstDistance());
+	        return -1;
+	    }
+	    if (x.getCurrTime() > y.getCurrTime()) {
+	     //  	System.out.println(x.getEstDistance() + " more then " + y.getEstDistance());
+	        return 1;
+	    }
+	        return 0;
+	}
 	
 	
 }
