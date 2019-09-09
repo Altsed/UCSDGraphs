@@ -45,7 +45,7 @@ class Edges {
 		calendar.setTime(new Date());
 		int temp = calendar.get(Calendar.HOUR_OF_DAY);
 		double result;
-		if (temp > 8 && temp < 11 || temp > 16 && temp < 20 ) {
+		if (roadType.equals("residential") && temp > 8 && temp < 11 || temp > 16 && temp < 20 ) {
 			result = distance/(this.speed_lim*0.8);
 		}
 		else {
