@@ -400,6 +400,7 @@ public class MapGraph {
 		HashMap<GeographicPoint, GeographicPoint> parentsMap = new HashMap<>();
 		boolean found = false;
 		double pathDistance = 0;
+		double pathTime = 0;
 			
 		//initialize Vertices variable curr. Find vertices in HashMap nodes with GeographicPoint start and assign it to curr.
 		Vertices curr = nodes.get(start);
@@ -409,9 +410,11 @@ public class MapGraph {
 			
 			
 			curr = list.remove();
-			pathDistance = curr.getCurrDistance();
-		//	System.out.println("pathDistance :" + pathDistance);
 			nodeSearched.accept(curr.getGeoPoint());
+			pathDistance = curr.getCurrDistance();
+			pathTime = curr.getCurrTime();
+		//	System.out.println("pathDistance :" + pathDistance);
+			
 			if (!visited.contains(curr)) {
 				visited.add(curr);
 				
@@ -429,7 +432,9 @@ public class MapGraph {
 						}
 						else {
 							next.setCurrDistance(pathDistance + s.getDistance());
+							next.setCurrTime(pathTime + s.getTime());
 							next.setEstDistance(next.getGeoPoint().distance(goal));
+							next.setEstTime();
 							list.add(next);
 							parentsMap.put(next.getGeoPoint(), curr.getGeoPoint());
 						}
@@ -494,14 +499,14 @@ public class MapGraph {
 		System.out.println(firstMap.numEdges);
 		GeographicPoint start = new GeographicPoint(1.0, 1.0);
 		GeographicPoint goal = new GeographicPoint(8.0, -1.0);
-		// test dijkstra
+	/*	// test dijkstra
 		
 		System.out.println (firstMap.dijkstra(start, goal).size());
 		for (GeographicPoint list : firstMap.dijkstra(start, goal)) {
 			System.out.println(list.getX() + "|" + list.getY());
 		}
 		
-		/*
+		*/
 		
 		// test aStarSearch
 		System.out.println (firstMap.aStarSearch(start, goal).size());

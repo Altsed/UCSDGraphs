@@ -70,8 +70,8 @@ class Vertices implements Comparator<Vertices> {
 		return this.currTime;
 	}
 
-	public void setEstTime (double estTime) {
-		this.estTime = estTime;
+	public void setEstTime () {
+		this.estTime = this.getEstDistance()/(this.currDistance/this.getCurrTime());
 	}
 	
 
@@ -93,11 +93,11 @@ class Vertices implements Comparator<Vertices> {
 	//adding time dependence to compare with distance
 	public int compare(Vertices x, Vertices y) {
         
-		if (x.getCurrTime() < y.getCurrTime()) {
+		if ((x.getCurrTime() + x.getEstTime() < y.getCurrTime() + y.getEstTime())) {
 	    	//System.out.println(x.getEstDistance() + " less then " + y.getEstDistance());
 	        return -1;
 	    }
-	    if (x.getCurrTime() > y.getCurrTime()) {
+	    if ((x.getCurrTime() + x.getEstTime() > y.getCurrTime() + y.getEstTime())) {
 	     //  	System.out.println(x.getEstDistance() + " more then " + y.getEstDistance());
 	        return 1;
 	    }

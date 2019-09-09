@@ -1,5 +1,8 @@
 package roadgraph;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import geography.GeographicPoint;
 
 class Edges {
@@ -38,7 +41,18 @@ class Edges {
 		return this.distance;
 	}
 	public  double getTime() {
-		return distance/this.speed_lim;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		int temp = calendar.get(Calendar.HOUR_OF_DAY);
+		double result;
+		if (temp > 8 && temp < 11 || temp > 16 && temp < 20 ) {
+			result = distance/(this.speed_lim*0.8);
+		}
+		else {
+			result = distance/this.speed_lim;
+		}
+		
+		return result;
 	}
 	
 }
